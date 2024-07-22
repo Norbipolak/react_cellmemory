@@ -1,0 +1,112 @@
+@use 'sass:math';
+@include mapMixin($spacings, "gap", grid-gap);
+
+@for $i from 2 through 12 {
+    .grid-col-#{$i} {
+        display:grid;
+        grid-template-columns: repeat($i, 1fr);
+
+        @media screen and (max-width:map-get($sizes, "lg")) {
+            $fr:math.ceil(math.div($i, 2));
+
+            @if($i%2 == 0 or $i%3 != 0) {
+                grid-template-columns: repeat($fr, 1fr);
+            } @else if($i%3 == 0 and $fr%3 == 0) {
+                grid-template-columns: repeat($fr, 1fr);
+            }
+        }
+
+        @media screen and (max-width:map-get($sizes, "md")) {
+            $fr:math.ceil(math.div($i, 3));
+
+            @if($i%2 == 0 or $i%3 != 0) { 
+                grid-template-columns: repeat($fr, 1fr);
+            } @else {
+                @if($i%3 == 0 and $fr%3 == 0) {
+                    grid-template-columns: repeat($fr, 1fr);
+                }
+            }
+        }
+
+        @media screen and (max-width:map-get($sizes, "sm")) {
+            $fr:math.ceil(math.div($i, 4));
+
+            @if($i%2 == 0 or $i%3 != 0) {
+                grid-template-columns: repeat($fr, 1fr);
+            } @else {
+                @if($i%3 == 0 and $fr%3 == 0) {
+                    grid-template-columns: repeat($fr, 1fr);
+                }
+            }
+        }
+
+        @media screen and (max-width:map-get($sizes, "xs")) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+.row {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+@for $i from 1 through 12 {
+    .col-lg-#{$i} {
+        width: calc(100%/12*#{$i})!important;
+    }
+
+    .col-md-#{$i} {
+        width: calc(100%/12*#{$i});
+    }
+
+    .col-sm-#{$i} {
+        width: calc(100%/12*#{$i});
+    }
+
+    .col-xs-#{$i} {
+        width: calc(100%/12*#{$i});
+    }
+}
+
+@media screen and (max-width:map-get($sizes, "lg")) {
+    @for $i from 1 through 12 {
+        .col-lg-#{$i} {
+            width:100%!important;
+        }
+    }
+
+    @for $i from 1 through 12 {
+        .col-md-#{$i} {
+            width: calc(100%/12*#{$i})!important;
+        }
+    }
+}
+
+@media screen and (max-width:map-get($sizes, "md")) {
+    @for $i from 1 through 12 {
+        .col-md-#{$i} {
+            width:100%!important;
+        }
+    }
+
+    @for $i from 1 through 12 {
+        .col-sm-#{$i} {
+            width: calc(100%/12*#{$i})!important;
+        }
+    }
+}
+
+@media screen and (max-width:map-get($sizes, "sm")) {
+    @for $i from 1 through 12 {
+        .col-sm-#{$i} {
+            width: 100%!important;
+        }
+    }
+
+    @for $i from 1 through 12 {
+        .col-xs-#{$i} {
+            width: calc(100%/12*#{$i})!important;
+        }
+    }
+}

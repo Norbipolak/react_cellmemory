@@ -1,0 +1,51 @@
+%input:focus {
+    outline:0;
+}
+
+.input-sm {
+    padding:5px 8px;
+}
+
+.input-md {
+    padding:10px 14px;
+}
+
+.input-lg {
+    padding:15px 20px;
+}
+
+.input {
+    @extend %input;
+}
+
+.center-input {
+    display: block;
+    margin: 10px auto;
+}
+
+@each $key, $value in $colors {
+    .input-#{$key} {
+        border:2px solid map-get($colors, "mid-grey");
+        background-color:white;
+        border-radius:4px;
+
+        &:focus {
+            outline:0;
+            border:2px solid $value;
+        }
+    }
+
+    .btn-#{$key} {
+        border:2px solid darken($value, 15%);
+        background-color:$value;
+        border-radius:4px;
+        color:white;
+        cursor: pointer;
+
+        &:active {
+            outline:0;
+            border:2px solid darken($value, 25%);
+            background-color:darken($value, 15%);
+        }
+    }
+}
